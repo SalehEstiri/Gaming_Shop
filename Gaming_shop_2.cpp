@@ -416,19 +416,38 @@ void shop(){
             std::cout << i + 1 << "- " << games[i].name << "\n";
         }
         std::cout << "-------------------------\n";
-        int choice{};
+        int choice{}, number {};
         std::cout << "Enter your choice : \n";
         std::cin >> choice;
+        if (choice > games.size ()){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        std::cout << "How many do you want : \n";
+        std::cin >> number;
+        if(number > games[choice -1].inventory){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        else if (number * (games[choice - 1].price / games[choice - 1].inventory) > customer_wallet){
+            std::cout << "You don't have enough money ! \n";
+            return;
+        }
         cart_item.name = games[choice - 1].name;
-        cart_item.price = games[choice - 1].price;
-        cart_item.inventory = games[choice - 1].inventory;
+        cart_item.price = number * (games[choice - 1].price / games[choice - 1].inventory);
+        cart_item.inventory = number;
         cart.push_back(cart_item);
 
         std::string answer{};
         std::cout << "Are you sure about your item ? (yes / no) \n";
         std::cin >> answer;
         if (answer == "yes"){
-            games.erase(games.begin() + choice - 1);
+            if (number == games[choice - 1].inventory) {
+                games.erase(games.begin() + choice - 1);
+            } else {
+                games[choice - 1].inventory -= number;
+                games[choice - 1].price -= cart_item.price;
+            }
             admin_wallet += cart_item.price;
             customer_wallet -= cart_item.price;
         } 
@@ -440,25 +459,45 @@ void shop(){
             cart.erase(cart.end());
         }
     } 
+
     else if (product_type == "console"){
         std::cout << "-------------------------\n";
         for(int i = 0; i < consoles.size(); i++){
             std::cout << i + 1 << "- " << consoles[i].name << "\n";
         }
         std::cout << "-------------------------\n";
-        int choice{};
-        std::cout << "Enter your choice :\n";
+        int choice{}, number {};
+        std::cout << "Enter your choice : \n";
         std::cin >> choice;
+        if (choice > consoles.size ()){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        std::cout << "How many do you want : \n";
+        std::cin >> number;
+        if(number > consoles[choice -1].inventory){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        else if (number * (consoles[choice - 1].price / consoles[choice - 1].inventory) > customer_wallet){
+            std::cout << "You don't have enough money ! \n";
+            return;
+        }
         cart_item.name = consoles[choice - 1].name;
-        cart_item.price = consoles[choice - 1].price;
-        cart_item.inventory = consoles[choice - 1].inventory;
+        cart_item.price = number * (consoles[choice - 1].price / consoles[choice - 1].inventory);
+        cart_item.inventory = number;
         cart.push_back(cart_item);
 
         std::string answer{};
         std::cout << "Are you sure about your item ? (yes / no) \n";
         std::cin >> answer;
         if (answer == "yes"){
-            consoles.erase(consoles.begin() + choice - 1);
+            if (number == consoles[choice - 1].inventory) {
+                consoles.erase(consoles.begin() + choice - 1);
+            } else {
+                consoles[choice - 1].inventory -= number;
+                consoles[choice - 1].price -= cart_item.price;
+            }
             admin_wallet += cart_item.price;
             customer_wallet -= cart_item.price;
         } 
@@ -470,25 +509,45 @@ void shop(){
             cart.erase(cart.end());
         }
     }
+
     else if (product_type == "headset"){
         std::cout << "-------------------------\n";
         for(int i = 0; i < headsets.size(); i++){
             std::cout << i + 1 << "- " << headsets[i].name << "\n";
         }
         std::cout << "-------------------------\n";
-        int choice{};
-        std::cout << "Enter your choice :\n";
+        int choice{}, number {};
+        std::cout << "Enter your choice : \n";
         std::cin >> choice;
+        if (choice > headsets.size ()){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        std::cout << "How many do you want : \n";
+        std::cin >> number;
+        if(number > headsets[choice -1].inventory){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        else if (number * (headsets[choice - 1].price / headsets[choice - 1].inventory) > customer_wallet){
+            std::cout << "You don't have enough money ! \n";
+            return;
+        }
         cart_item.name = headsets[choice - 1].name;
-        cart_item.price = headsets[choice - 1].price;
-        cart_item.inventory = headsets[choice - 1].inventory;
+        cart_item.price = number * (headsets[choice - 1].price / headsets[choice - 1].inventory);
+        cart_item.inventory = number;
         cart.push_back(cart_item);
 
         std::string answer{};
         std::cout << "Are you sure about your item ? (yes / no) \n";
         std::cin >> answer;
         if (answer == "yes"){
-            headsets.erase(headsets.begin() + choice - 1);
+            if (number == headsets[choice - 1].inventory) {
+                headsets.erase(headsets.begin() + choice - 1);
+            } else {
+                headsets[choice - 1].inventory -= number;
+                headsets[choice - 1].price -= cart_item.price;
+            }
             admin_wallet += cart_item.price;
             customer_wallet -= cart_item.price;
         } 
@@ -500,26 +559,45 @@ void shop(){
             cart.erase(cart.end());
         }
     }
+
     else if (product_type == "monitor"){
         std::cout << "-------------------------\n";
         for(int i = 0; i < monitors.size(); i++){
             std::cout << i + 1 << "- " << monitors[i].name << "\n";
         }
         std::cout << "-------------------------\n";
-        int choice{};
-        std::cout << "Enter your choice :\n";
+        int choice{}, number {};
+        std::cout << "Enter your choice : \n";
         std::cin >> choice;
-        Cart cart_item;
+        if (choice > monitors.size ()){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        std::cout << "How many do you want : \n";
+        std::cin >> number;
+        if(number > monitors[choice -1].inventory){
+            std::cout << "Invalid input ! \n";
+            return;
+        }
+        else if (number * (monitors[choice - 1].price / monitors[choice - 1].inventory) > customer_wallet){
+            std::cout << "You don't have enough money ! \n";
+            return;
+        }
         cart_item.name = monitors[choice - 1].name;
-        cart_item.price = monitors[choice - 1].price;
-        cart_item.inventory = monitors[choice - 1].inventory;
+        cart_item.price = number * (monitors[choice - 1].price / monitors[choice - 1].inventory);
+        cart_item.inventory = number;
         cart.push_back(cart_item);
 
         std::string answer{};
         std::cout << "Are you sure about your item ? (yes / no) \n";
         std::cin >> answer;
         if (answer == "yes"){
-            monitors.erase(monitors.begin() + choice - 1);
+            if (number == monitors[choice - 1].inventory) {
+                monitors.erase(monitors.begin() + choice - 1);
+            } else {
+                monitors[choice - 1].inventory -= number;
+                monitors[choice - 1].price -= cart_item.price;
+            }
             admin_wallet += cart_item.price;
             customer_wallet -= cart_item.price;
         } 
@@ -643,9 +721,10 @@ void main_menu(std::string user_type) {
 
 int main(){
     std::string user_type {};
-    while(user_type != "exit"){
+    while(true){
         std::cout << "Are you an admin or customer ? (admin / customer / exit) \n";
         std::cin >> user_type;
+        if (user_type == "exit") return 0;
         main_menu(user_type);
     }
 }
